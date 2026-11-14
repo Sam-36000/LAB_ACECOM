@@ -12,37 +12,36 @@ class DHParameters:
 
 
 def validar_parametros(params: DHParameters) -> bool:
-    """Valida matematicamente los parametros del subgrupo."""
 
     p = params.p
     q = params.q
     g = params.g
 
-    # 1. Validar que sean enteros
+    # 1. enteros
     if not all(type(v) is int for v in (p, q, g)):
         raise ValueError("Los parametros deben ser enteros.")
 
-    # 2. Validar que p sea primo
+    # 2. p primo
     if not isprime(p):
         raise ValueError("p debe ser un numero primo.")
 
-    # 3. Validar que q sea primo
+    # 3. q primo
     if not isprime(q):
         raise ValueError("q debe ser un numero primo.")
 
-    # 4. Validar que q divida a p - 1
+    # 4. q divide p - 1
     if (p - 1) % q != 0:
         raise ValueError("q debe dividir exactamente a p - 1.")
 
-    # 5. Validar que g pertenezca al campo
+    # 5.  g pertenece al campo
     if not (1 < g < p):
         raise ValueError("g debe cumplir 1 < g < p.")
 
-    # 6. Validar pertenencia al subgrupo
+    # 6. Pertenencia  subgrupo
     if pow(g, q, p) != 1:
         raise ValueError("g no pertenece al subgrupo de orden q.")
 
-    # 7. Validar que g tenga orden exactamente q
+    # 7. G de orden q
     if g == 1:
         raise ValueError("g no puede ser la identidad.")
 
@@ -62,7 +61,7 @@ def validar_parametros(params: DHParameters) -> bool:
 
 
 def obtener_parametros_prueba() -> DHParameters:
-    """Parametros educativos para las primeras pruebas."""
+    """Parametros juguete para las primeras pruebas."""
 
     return DHParameters(
         p=23,
